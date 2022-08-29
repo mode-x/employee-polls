@@ -5,7 +5,7 @@ export default function polls(state = {}, action) {
     case RECEIVE_POLLS:
       return {
         ...state,
-        ...action.tweets,
+        ...action.polls,
       };
     default:
       return state;

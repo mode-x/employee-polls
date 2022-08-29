@@ -11,8 +11,8 @@ export function handleInitialData() {
     const users = await _getUsers();
     console.log(polls);
     console.log(users);
-    // dispatch(receivePolls(polls));
-    // dispatch(receiveUsers(users));
+    dispatch(receivePolls(polls));
+    dispatch(receiveUsers(users));
     dispatch(setAuthedUser(AUTHED_ID));
   };
 }

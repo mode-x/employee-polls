@@ -148,6 +148,22 @@ function generateUID() {
   );
 }
 
+export function _getUser(id, password) {
+  const allUsers = Object.entries(users).flatMap((user) => user.pop());
+
+  return new Promise((resolve) => {
+    setTimeout(
+      () =>
+        resolve(
+          allUsers
+            .filter((user) => user.id === id && user.password === password)
+            .pop()
+        ),
+      1000
+    );
+  });
+}
+
 export function _getUsers() {
   return new Promise((resolve) => {
     setTimeout(() => resolve({ ...users }), 1000);

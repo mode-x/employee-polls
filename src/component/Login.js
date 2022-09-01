@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { _getUser } from "../utils/_DATA";
+import { setAuthedUser, setAuthedUserId } from "../actions/authedUser";
+import { connect } from "react-redux";
 
-const Login = () => {
+const Login = (props) => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,9 +15,13 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
-  const login = (e) => {
-    e.preventDefault();
-    console.log(userId, password);
+  const login = (event) => {
+    event.preventDefault();
+
+    _getUser(userId, password).then((user) => {
+      props.dispatch(setAuthedUserId(user.id));
+      props.dispatch(setAuthedUser(user));
+    });
   };
 
   return (
@@ -49,4 +55,6 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (props) => props;
+
+export default connect(mapStateToProps)(Login);

@@ -148,7 +148,7 @@ function generateUID() {
   );
 }
 
-export function _getUser(id, password) {
+export function _getUser(userId, password) {
   const allUsers = Object.entries(users).flatMap((user) => user.pop());
 
   return new Promise((resolve) => {
@@ -156,7 +156,7 @@ export function _getUser(id, password) {
       () =>
         resolve(
           allUsers
-            .filter((user) => user.id === id && user.password === password)
+            .filter((user) => user.id === userId && user.password === password)
             .pop()
         ),
       1000

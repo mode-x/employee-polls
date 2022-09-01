@@ -1,4 +1,4 @@
-import "../App.css";
+import "../assets/css/App.css";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";

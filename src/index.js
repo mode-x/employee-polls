@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import "./assets/css/index.css";
 import App from "./component/App";
 import { createStore } from "redux";
 import reducer from "./reducers";

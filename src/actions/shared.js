@@ -9,8 +9,7 @@ export function handleInitialData() {
   return async (dispatch) => {
     const polls = await _getQuestions();
     const users = await _getUsers();
-    console.log(polls);
-    console.log(users);
+
     dispatch(receivePolls(polls));
     dispatch(receiveUsers(users));
     dispatch(setAuthedUser(AUTHED_ID));

@@ -36,7 +36,6 @@ const Dashboard = (props) => {
           return b.timestamp - a.timestamp;
         })
     );
-    console.log(unansweredPolls);
   };
 
   const fetchAnsweredPolls = () => {
@@ -51,7 +50,6 @@ const Dashboard = (props) => {
           return b.timestamp - a.timestamp;
         })
     );
-    console.log(answeredPolls);
   };
 
   useEffect(() => {
@@ -100,7 +98,7 @@ const Dashboard = (props) => {
           className="w3-container panels"
           style={{ display: "block" }}
         >
-          <table className="w3-table w3-striped w3-bordered">
+          <table className="w3-table w3-striped w3-bordered w3-padding-24">
             <thead>
               <tr>
                 <th>Option 1</th>
@@ -133,7 +131,7 @@ const Dashboard = (props) => {
           className="w3-container panels"
           style={{ display: "none" }}
         >
-          <table className="w3-table w3-striped w3-bordered">
+          <table className="w3-table w3-striped w3-bordered w3-padding-24">
             <thead>
               <tr>
                 <th>Option 1</th>

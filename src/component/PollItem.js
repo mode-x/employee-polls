@@ -1,4 +1,9 @@
+import { connect } from "react-redux";
+import { handleVotePoll } from "../actions/polls";
+
 const PollItem = ({
+  dispatch,
+  pollId,
   isAnswered,
   answer,
   option,
@@ -6,6 +11,14 @@ const PollItem = ({
   votes,
   percentage,
 }) => {
+  const vote = (event) => {
+    event.preventDefault();
+
+    const answer = event.target.id.split("-").pop();
+
+    dispatch(handleVotePoll(pollId, answer));
+  };
+
   return (
     <div className="w3-container">
       <div
@@ -37,8 +50,10 @@ const PollItem = ({
       {!isAnswered && (
         <div className="w3-row w3-padding-16">
           <button
+            id={`button-${option}`}
             className="w3-button w3-circle w3-black w3-hover-blue-gray"
             style={{ width: "70px", height: "70px" }}
+            onClick={vote}
           >
             <i
               className="glyphicon glyphicon-thumbs-up"
@@ -51,4 +66,6 @@ const PollItem = ({
   );
 };
 
-export default PollItem;
+const mapStateToProps = (props) => props;
+
+export default connect(mapStateToProps)(PollItem);

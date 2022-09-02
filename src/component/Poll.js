@@ -29,6 +29,8 @@ const Poll = (props) => {
       <div className="w3-row">
         <div className="w3-half w3-center">
           <PollItem
+            pollId={props.id}
+            authedUser={props.authedUser}
             isAnswered={props.isAnswered}
             answer={props.answer}
             option={"optionOne"}
@@ -41,6 +43,8 @@ const Poll = (props) => {
         </div>
         <div className="w3-half w3-center">
           <PollItem
+            pollId={props.id}
+            authedUser={props.authedUser}
             isAnswered={props.isAnswered}
             answer={props.answer}
             option={"optionTwo"}
@@ -66,8 +70,10 @@ const mapStateToProps = ({ authedUser, polls, users }, otherProps) => {
   const user = allUsers.filter((user) => user.id === poll.author).pop();
 
   return {
+    id,
     poll,
     user,
+    authedUser,
     numberOfUsers: allUsers.length,
     isAnswered: authedUser.answers[id] ? true : false,
     answer: authedUser.answers[id],

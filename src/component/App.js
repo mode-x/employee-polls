@@ -10,7 +10,6 @@ import NewPoll from "./NewPoll";
 import { Routes, Route } from "react-router-dom";
 
 const App = (props) => {
-  console.log(props);
   useEffect(() => {
     props.dispatch(handleInitialData());
   }, []);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import Table from "./Table";
 
 const Dashboard = (props) => {
   const [unansweredPolls, setUnansweredPolls] = useState([]);
@@ -65,12 +65,20 @@ const Dashboard = (props) => {
             <img
               src={require(`../${props.authedUser.avatarURL}`)}
               className="w3-circle"
-              width={60}
+              width={75}
               alt="Alps"
             ></img>
           </div>
 
-          <div className="w3-rest">{props.authedUser.name}</div>
+          <div className="w3-rest">
+            <p className="username">{props.authedUser.name}</p>
+            <p className="userinfo pb-0">
+              Polls: {props.authedUser.questions.length}
+            </p>
+            <p className="userinfo pb-0">
+              Answers: {Object.keys(props.authedUser.answers).length}
+            </p>
+          </div>
         </div>
 
         <h3>Polls</h3>
@@ -98,32 +106,7 @@ const Dashboard = (props) => {
           className="w3-container panels"
           style={{ display: "block" }}
         >
-          <table className="w3-table w3-striped w3-bordered w3-padding-24">
-            <thead>
-              <tr>
-                <th>Option 1</th>
-                <th>Option 2</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {unansweredPolls.map((unansweredPoll) => (
-                <tr key={unansweredPoll.id}>
-                  <td>{unansweredPoll.optionOne.text}</td>
-                  <td>{unansweredPoll.optionTwo.text}</td>
-                  <td>
-                    {" "}
-                    <Link
-                      to={`questions/${unansweredPoll.id}`}
-                      className="w3-button"
-                    >
-                      View
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <Table polls={unansweredPolls} />
         </div>
 
         <div
@@ -131,32 +114,7 @@ const Dashboard = (props) => {
           className="w3-container panels"
           style={{ display: "none" }}
         >
-          <table className="w3-table w3-striped w3-bordered w3-padding-24">
-            <thead>
-              <tr>
-                <th>Option 1</th>
-                <th>Option 2</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {answeredPolls.map((answeredPoll) => (
-                <tr key={answeredPoll.id}>
-                  <td>{answeredPoll.optionOne.text}</td>
-                  <td>{answeredPoll.optionTwo.text}</td>
-                  <td>
-                    {" "}
-                    <Link
-                      to={`questions/${answeredPoll.id}`}
-                      className="w3-button"
-                    >
-                      View
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <Table polls={answeredPolls} />
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@ const PollItem = ({
       {!isAnswered && (
         <div className="w3-row w3-padding-16">
           <button
-            className="w3-button w3-circle w3-black"
+            className="w3-button w3-circle w3-black w3-hover-blue-gray"
             style={{ width: "70px", height: "70px" }}
           >
             <i

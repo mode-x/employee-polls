@@ -22,11 +22,7 @@ const NavBar = (props) => {
         New
       </Link>
 
-      <Link
-        to="/"
-        className="w3-bar-item w3-button w3-green w3-right"
-        onClick={logout}
-      >
+      <Link to="/" className="w3-bar-item w3-link w3-right" onClick={logout}>
         Logout
       </Link>
     </div>

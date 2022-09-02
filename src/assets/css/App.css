@@ -44,6 +44,18 @@
   justify-content: center;
 }
 
+.username {
+  font-weight: bold;
+}
+
+.userinfo {
+  font-size: 0.85em;
+}
+
+.pb-0 {
+  margin-bottom: 0 !important;
+}
+
 .avatar-padding {
   padding-top: 2px !important;
   padding-bottom: 0 !important;

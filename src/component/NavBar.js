@@ -22,23 +22,13 @@ const NavBar = (props) => {
         New
       </Link>
 
-      <div className="w3-right">
-        <span className="w3-bar-item avatar-padding">
-          <img
-            src={require(`../${props.authedUser.avatarURL}`)}
-            className="w3-circle"
-            width={35}
-            alt="Alps"
-          ></img>
-        </span>
-        <Link
-          to="/add"
-          className="w3-bar-item w3-button w3-green"
-          onClick={logout}
-        >
-          Logout
-        </Link>
-      </div>
+      <Link
+        to="/"
+        className="w3-bar-item w3-button w3-green w3-right"
+        onClick={logout}
+      >
+        Logout
+      </Link>
     </div>
   );
 };

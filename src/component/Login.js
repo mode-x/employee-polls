@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { _getUser } from "../utils/_DATA";
-import { setAuthedUser, setAuthedUserId } from "../actions/authedUser";
+import { setAuthedUser } from "../actions/authedUser";
 import { connect } from "react-redux";
 
 const Login = (props) => {
@@ -19,7 +19,6 @@ const Login = (props) => {
     event.preventDefault();
 
     _getUser(userId, password).then((user) => {
-      props.dispatch(setAuthedUserId(user.id));
       props.dispatch(setAuthedUser(user));
     });
   };

@@ -44,5 +44,7 @@
   justify-content: center;
 }
 
-.login-form {
+.avatar-padding {
+  padding-top: 2px !important;
+  padding-bottom: 0 !important;
 }

@@ -76,7 +76,7 @@ const mapStateToProps = ({ authedUser, polls, users }, otherProps) => {
         poll.optionOne.votes.includes(authedUser.id) ||
         poll.optionTwo.votes.includes(authedUser.id)
     )
-    .map((item) => item.id);
+    .map((poll) => poll.id);
 
   return {
     id,

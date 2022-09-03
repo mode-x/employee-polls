@@ -1,11 +1,7 @@
-import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import Table from "./Table";
 
 const Dashboard = (props) => {
-  const [unansweredPolls, setUnansweredPolls] = useState([]);
-  const [answeredPolls, setAnsweredPolls] = useState([]);
-
   const handleChange = (event) => {
     const tab = event.target.id;
     const panel = tab.split("-")[0];
@@ -24,39 +20,6 @@ const Dashboard = (props) => {
     document.getElementById(panel).style.display = "block";
   };
 
-  const fetchUnansweredPolls = () => {
-    const polls = Object.entries(props.polls).flatMap((poll) => poll.pop());
-
-    setUnansweredPolls(
-      polls
-        .filter(
-          (poll) => !Object.keys(props.authedUser.answers).includes(poll.id)
-        )
-        .sort((a, b) => {
-          return b.timestamp - a.timestamp;
-        })
-    );
-  };
-
-  const fetchAnsweredPolls = () => {
-    const polls = Object.entries(props.polls).flatMap((poll) => poll.pop());
-
-    setAnsweredPolls(
-      polls
-        .filter((poll) =>
-          Object.keys(props.authedUser.answers).includes(poll.id)
-        )
-        .sort((a, b) => {
-          return b.timestamp - a.timestamp;
-        })
-    );
-  };
-
-  useEffect(() => {
-    fetchUnansweredPolls();
-    fetchAnsweredPolls();
-  }, []);
-
   return (
     <div>
       <div className="w3-container">
@@ -73,10 +36,10 @@ const Dashboard = (props) => {
           <div className="w3-rest">
             <p className="username">{props.authedUser.name}</p>
             <p className="userinfo pb-0">
-              Polls: {props.authedUser.questions.length}
+              Polls: {props.authedUserQuestions.length}
             </p>
             <p className="userinfo pb-0">
-              Answers: {Object.keys(props.authedUser.answers).length}
+              Answers: {props.authedUserAnswers.length}
             </p>
           </div>
         </div>
@@ -106,7 +69,7 @@ const Dashboard = (props) => {
           className="w3-container panels"
           style={{ display: "block" }}
         >
-          <Table polls={unansweredPolls} />
+          <Table polls={props.unansweredPolls} />
         </div>
 
         <div
@@ -114,7 +77,7 @@ const Dashboard = (props) => {
           className="w3-container panels"
           style={{ display: "none" }}
         >
-          <Table polls={answeredPolls} />
+          <Table polls={props.answeredPolls} />
         </div>
       </div>
     </div>
@@ -124,6 +87,28 @@ const Dashboard = (props) => {
 const mapStateToProps = ({ authedUser, polls }) => ({
   authedUser,
   polls,
+  unansweredPolls: Object.entries(polls)
+    .flatMap((poll) => poll.pop())
+    .filter((poll) => !Object.keys(authedUser.answers).includes(poll.id))
+    .sort((a, b) => {
+      return b.timestamp - a.timestamp;
+    }),
+  answeredPolls: Object.entries(polls)
+    .flatMap((poll) => poll.pop())
+    .filter((poll) => Object.keys(authedUser.answers).includes(poll.id))
+    .sort((a, b) => {
+      return b.timestamp - a.timestamp;
+    }),
+  authedUserQuestions: Object.entries(polls)
+    .flatMap((poll) => poll.pop())
+    .filter((poll) => poll.author === authedUser.id),
+  authedUserAnswers: Object.entries(polls)
+    .flatMap((poll) => poll.pop())
+    .filter(
+      (poll) =>
+        poll.optionOne.votes.includes(authedUser.id) ||
+        poll.optionTwo.votes.includes(authedUser.id)
+    ),
 });
 
 export default connect(mapStateToProps)(Dashboard);

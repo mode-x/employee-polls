@@ -84,31 +84,36 @@ const Dashboard = (props) => {
   );
 };
 
-const mapStateToProps = ({ authedUser, polls }) => ({
-  authedUser,
-  polls,
-  unansweredPolls: Object.entries(polls)
-    .flatMap((poll) => poll.pop())
-    .filter((poll) => !Object.keys(authedUser.answers).includes(poll.id))
-    .sort((a, b) => {
-      return b.timestamp - a.timestamp;
-    }),
-  answeredPolls: Object.entries(polls)
-    .flatMap((poll) => poll.pop())
-    .filter((poll) => Object.keys(authedUser.answers).includes(poll.id))
-    .sort((a, b) => {
-      return b.timestamp - a.timestamp;
-    }),
-  authedUserQuestions: Object.entries(polls)
-    .flatMap((poll) => poll.pop())
-    .filter((poll) => poll.author === authedUser.id),
-  authedUserAnswers: Object.entries(polls)
+const mapStateToProps = ({ authedUser, polls }) => {
+  const authedUserAnswers = Object.entries(polls)
     .flatMap((poll) => poll.pop())
     .filter(
       (poll) =>
         poll.optionOne.votes.includes(authedUser.id) ||
         poll.optionTwo.votes.includes(authedUser.id)
-    ),
-});
+    )
+    .map((poll) => poll.id);
+
+  return {
+    authedUser,
+    polls,
+    unansweredPolls: Object.entries(polls)
+      .flatMap((poll) => poll.pop())
+      .filter((poll) => !authedUserAnswers.includes(poll.id))
+      .sort((a, b) => {
+        return b.timestamp - a.timestamp;
+      }),
+    answeredPolls: Object.entries(polls)
+      .flatMap((poll) => poll.pop())
+      .filter((poll) => authedUserAnswers.includes(poll.id))
+      .sort((a, b) => {
+        return b.timestamp - a.timestamp;
+      }),
+    authedUserQuestions: Object.entries(polls)
+      .flatMap((poll) => poll.pop())
+      .filter((poll) => poll.author === authedUser.id),
+    authedUserAnswers,
+  };
+};
 
 export default connect(mapStateToProps)(Dashboard);

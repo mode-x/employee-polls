@@ -1,4 +1,8 @@
-import { _saveQuestion, _saveQuestionAnswer } from "../utils/_DATA";
+import {
+  _saveQuestion,
+  _saveQuestionAnswer,
+  _getQuestions,
+} from "../utils/_DATA";
 
 export const RECEIVE_POLLS = "RECEIVE_POLLS";
 export const ADD_POLL = "ADD_POLL";
@@ -28,7 +32,11 @@ export function handleVotePoll(qid, answer) {
       authedUser: authedUser.id,
       qid,
       answer,
-    }).then((poll) => console.log(poll));
+    }).then(() => {
+      _getQuestions().then((polls) => {
+        dispatch(receivePolls(polls));
+      });
+    });
   };
 }
 

@@ -69,13 +69,22 @@ const mapStateToProps = ({ authedUser, polls, users }, otherProps) => {
   const poll = allPolls.filter((poll) => poll.id === id).pop();
   const user = allUsers.filter((user) => user.id === poll.author).pop();
 
+  const authedUserAnswers = Object.entries(polls)
+    .flatMap((poll) => poll.pop())
+    .filter(
+      (poll) =>
+        poll.optionOne.votes.includes(authedUser.id) ||
+        poll.optionTwo.votes.includes(authedUser.id)
+    )
+    .map((item) => item.id);
+
   return {
     id,
     poll,
     user,
     authedUser,
     numberOfUsers: allUsers.length,
-    isAnswered: authedUser.answers[id] ? true : false,
+    isAnswered: authedUserAnswers.includes(id),
     answer: authedUser.answers[id],
   };
 };

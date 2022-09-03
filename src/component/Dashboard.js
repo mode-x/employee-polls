@@ -85,33 +85,38 @@ const Dashboard = (props) => {
 };
 
 const mapStateToProps = ({ authedUser, polls }) => {
-  const authedUserAnswers = Object.entries(polls)
-    .flatMap((poll) => poll.pop())
-    .filter(
-      (poll) =>
-        poll.optionOne.votes.includes(authedUser.id) ||
-        poll.optionTwo.votes.includes(authedUser.id)
-    )
-    .map((poll) => poll.id);
+  const allPolls = Object.entries(polls).flatMap((poll) => poll.pop());
+
+  const authedUserQuestions = allPolls.filter(
+    (poll) => poll.author === authedUser.id
+  );
+
+  const authedUserAnswers = allPolls.filter(
+    (poll) =>
+      poll.optionOne.votes.includes(authedUser.id) ||
+      poll.optionTwo.votes.includes(authedUser.id)
+  );
+
+  const authedUserAnswerIds = authedUserAnswers.map((poll) => poll.id);
+
+  const unansweredPolls = allPolls
+    .filter((poll) => !authedUserAnswerIds.includes(poll.id))
+    .sort((a, b) => {
+      return b.timestamp - a.timestamp;
+    });
+
+  const answeredPolls = allPolls
+    .filter((poll) => authedUserAnswerIds.includes(poll.id))
+    .sort((a, b) => {
+      return b.timestamp - a.timestamp;
+    });
 
   return {
     authedUser,
     polls,
-    unansweredPolls: Object.entries(polls)
-      .flatMap((poll) => poll.pop())
-      .filter((poll) => !authedUserAnswers.includes(poll.id))
-      .sort((a, b) => {
-        return b.timestamp - a.timestamp;
-      }),
-    answeredPolls: Object.entries(polls)
-      .flatMap((poll) => poll.pop())
-      .filter((poll) => authedUserAnswers.includes(poll.id))
-      .sort((a, b) => {
-        return b.timestamp - a.timestamp;
-      }),
-    authedUserQuestions: Object.entries(polls)
-      .flatMap((poll) => poll.pop())
-      .filter((poll) => poll.author === authedUser.id),
+    unansweredPolls,
+    answeredPolls,
+    authedUserQuestions,
     authedUserAnswers,
   };
 };

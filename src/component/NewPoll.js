@@ -37,13 +37,7 @@ const NewPoll = (props) => {
   return (
     <div className="w3-container">
       <div className="w3-row w3-center w3-padding-24">
-        <img
-          src={require(`../${props.authedUser.avatarURL}`)}
-          className="w3-circle"
-          width={100}
-          alt={`${props.authedUser.id}`}
-        ></img>
-        <h5>{`New Poll by ${props.authedUser.id}`}</h5>
+        <h5>Create your own poll</h5>
         <h2>Would You Rather</h2>
       </div>
       <div className="w3-row">
@@ -79,7 +73,12 @@ const NewPoll = (props) => {
         </div>
       </div>
       <div className="w3-row w3-center" style={{ marginTop: "24px" }}>
-        <input type="submit" value="Submit" onClick={addNewPoll} />
+        <input
+          type="submit"
+          value="Submit"
+          data-testid="submit-btn"
+          onClick={addNewPoll}
+        />
       </div>
     </div>
   );

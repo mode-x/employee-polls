@@ -44,7 +44,7 @@ const Leaderboard = (props) => {
                     src={require(`../${user.avatarURL}`)}
                     className="w3-circle"
                     width={35}
-                    alt="Alps"
+                    alt={user.id}
                   ></img>
                   <span>{user.name}</span>
                 </td>

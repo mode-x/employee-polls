@@ -26,7 +26,7 @@ const App = (props) => {
             <Route path="/" exact element={<Dashboard />} />
             <Route path="/leaderboard" exact element={<Leaderboard />} />
             <Route path="/add" exact element={<NewPoll />} />
-            <Route path="/questions/:id" exact element={<Poll />} />
+            <Route path="/questions/:question_id" exact element={<Poll />} />
           </Routes>
         </div>
       )}

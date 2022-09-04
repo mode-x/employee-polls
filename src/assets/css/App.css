@@ -60,3 +60,10 @@
   padding-top: 2px !important;
   padding-bottom: 0 !important;
 }
+
+a:hover,
+a:visited,
+a:active,
+a:link {
+  text-decoration: none;
+}

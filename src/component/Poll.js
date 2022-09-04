@@ -61,12 +61,12 @@ const Poll = (props) => {
 };
 
 const mapStateToProps = ({ authedUser, polls, users }, otherProps) => {
-  const { id } = otherProps.router.params;
+  const { question_id } = otherProps.router.params;
 
   const allPolls = Object.entries(polls).flatMap((poll) => poll.pop());
   const allUsers = Object.entries(users).flatMap((user) => user.pop());
 
-  const poll = allPolls.filter((poll) => poll.id === id).pop();
+  const poll = allPolls.filter((poll) => poll.id === question_id).pop();
   const user = allUsers.filter((user) => user.id === poll.author).pop();
 
   const authedUserAnswers = allPolls.filter(
@@ -86,12 +86,12 @@ const mapStateToProps = ({ authedUser, polls, users }, otherProps) => {
   };
 
   return {
-    id,
+    id: question_id,
     poll,
     user,
     authedUser,
     numberOfUsers: allUsers.length,
-    isAnswered: authedUserAnswerIds.includes(id),
+    isAnswered: authedUserAnswerIds.includes(question_id),
     answer: answer(),
   };
 };

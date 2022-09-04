@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import * as React from "react";
 import Login from "../component/Login";
@@ -19,14 +19,30 @@ describe("Login", () => {
 
     const userNameLabel = screen.getByText(/Username/);
     const passwordLabel = screen.getByText(/Password/);
-    const firstNameInput = screen.getByTestId("username-input");
-    const lastNameInput = screen.getByTestId("password-input");
-    const submitButton = screen.getByText("Submit");
+    const userNameInput = screen.getByTestId("username-input");
+    const passwordInput = screen.getByTestId("password-input");
+    const loginButton = screen.getByTestId("login-btn");
 
     expect(userNameLabel).toBeInTheDocument();
     expect(passwordLabel).toBeInTheDocument();
-    expect(firstNameInput).toBeInTheDocument();
-    expect(lastNameInput).toBeInTheDocument();
-    expect(submitButton).toBeInTheDocument();
+    expect(userNameInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
+    expect(loginButton).toBeInTheDocument();
+
+    fireEvent.change(userNameInput, { target: { value: "sarahedo" } });
+    expect(userNameInput.value).toEqual("sarahedo");
+  });
+
+  it("will display an error message when no username or password is provided", () => {
+    render(
+      <Provider store={store}>
+        <Login />
+      </Provider>
+    );
+
+    const loginButton = screen.getByTestId("login-btn");
+
+    fireEvent.click(loginButton);
+    expect(screen.getByTestId("error-header")).toBeInTheDocument();
   });
 });

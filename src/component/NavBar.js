@@ -11,19 +11,22 @@ const NavBar = (props) => {
   };
 
   return (
-    <div className="w3-bar w3-border w3-light-grey">
+    <div className="w3-bar w3-border-0 w3-light-grey">
       <Link to="/" className="w3-bar-item w3-button">
-        Home
-      </Link>
-      <Link to="/leaderboard" className="w3-bar-item w3-button">
-        Leaderboard
-      </Link>
-      <Link to="/add" className="w3-bar-item w3-button">
-        New
+        Employee Polls
       </Link>
 
-      <Link to="/" className="w3-bar-item w3-link w3-right" onClick={logout}>
+      <Link to="/" className="w3-bar-item w3-button w3-right" onClick={logout}>
         Logout
+      </Link>
+      <Link to="/add" className="w3-bar-item w3-button w3-right">
+        New Poll
+      </Link>
+      <Link to="/leaderboard" className="w3-bar-item w3-button w3-right">
+        Leaderboard
+      </Link>
+      <Link to="/" className="w3-bar-item w3-button w3-right">
+        Home
       </Link>
     </div>
   );

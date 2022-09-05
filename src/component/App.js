@@ -11,14 +11,14 @@ import NotFound from "./NotFound";
 import Poll from "./Poll";
 import { Routes, Route } from "react-router-dom";
 
-const App = (props) => {
+const App = ({ dispatch, authedUser }) => {
   useEffect(() => {
-    props.dispatch(handleInitialData());
-  }, []);
+    dispatch(handleInitialData());
+  }, [dispatch]);
 
   return (
     <div>
-      {props.authedUser === null ? (
+      {authedUser === null ? (
         <Login />
       ) : (
         <div>

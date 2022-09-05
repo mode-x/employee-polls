@@ -10,6 +10,10 @@ To get started:
 - install all project dependencies with `yarn install`
 - start the development server with `yarn start`
 
+## Running the tests
+
+After installation, the tests can be run by executing `yarn test test`
+
 ## Impersonation of user
 
 The table below provides usernames and passwords that can be used to impersonate a user to see how the app works.
@@ -20,3 +24,7 @@ The table below provides usernames and passwords that can be used to impersonate
 | tylermcginnis | abc321      |
 | mtsamis       | xyz123      |
 | zoshikanlu    | pass246     |
+
+## Author
+
+**Abia Emmanuel** - *abiaemma@gmail.com* - [mode-x](https://github.com/mode-x)

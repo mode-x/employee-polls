@@ -49,17 +49,12 @@ const PollItem = ({
       )}
       {!isAnswered && (
         <div className="w3-row w3-padding-16">
-          <button
+          <i
             id={`button-${option}`}
-            className="w3-button w3-circle w3-black w3-hover-blue-gray"
-            style={{ width: "70px", height: "70px" }}
+            className="w3-button w3-black w3-hover-blue-gray w3-padding-16 glyphicon glyphicon-thumbs-up"
+            style={{ fontSize: "2em", borderRadius: "50%" }}
             onClick={vote}
-          >
-            <i
-              className="glyphicon glyphicon-thumbs-up"
-              style={{ fontSize: "2em" }}
-            ></i>
-          </button>
+          ></i>
         </div>
       )}
     </div>

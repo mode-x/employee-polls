@@ -97,6 +97,7 @@ const NewPoll = (props) => {
           type="submit"
           value="Submit"
           data-testid="submit-btn"
+          className="w3-black w3-padding w3-hover-blue-gray w3-border-0"
           onClick={addNewPoll}
         />
       </div>

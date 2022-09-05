@@ -7,6 +7,7 @@ import Dashboard from "./Dashboard";
 import Login from "./Login";
 import Leaderboard from "./Leaderboard";
 import NewPoll from "./NewPoll";
+import NotFound from "./NotFound";
 import Poll from "./Poll";
 import { Routes, Route } from "react-router-dom";
 
@@ -23,6 +24,7 @@ const App = (props) => {
         <div>
           <NavBar />
           <Routes>
+            <Route path="*" element={<NotFound />} />
             <Route path="/" exact element={<Dashboard />} />
             <Route path="/leaderboard" exact element={<Leaderboard />} />
             <Route path="/add" exact element={<NewPoll />} />

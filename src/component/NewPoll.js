@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 const NewPoll = (props) => {
   const navigate = useNavigate();
 
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState("");
   const [optionOneText, setOptionOneText] = useState("");
   const [optionTwoText, setOptionTwoText] = useState("");
 
@@ -20,18 +22,26 @@ const NewPoll = (props) => {
   const addNewPoll = (event) => {
     event.preventDefault();
 
-    props.dispatch(
-      handleAddPoll({
-        optionOneText,
-        optionTwoText,
-        author: props.authedUser.id,
-      })
-    );
+    if (!optionOneText || !optionTwoText) {
+      setError(true);
+      setMessage("Both options must be provided");
+    } else {
+      props.dispatch(
+        handleAddPoll({
+          optionOneText,
+          optionTwoText,
+          author: props.authedUser.id,
+        })
+      );
 
-    setOptionOneText("");
-    setOptionTwoText("");
+      setError(false);
+      setMessage("");
 
-    navigate("/");
+      setOptionOneText("");
+      setOptionTwoText("");
+
+      navigate("/");
+    }
   };
 
   return (
@@ -39,6 +49,16 @@ const NewPoll = (props) => {
       <div className="w3-row w3-center w3-padding-24">
         <h5>Create your own poll</h5>
         <h2>Would You Rather</h2>
+      </div>
+      <div className="w3-row">
+        {error && (
+          <div
+            data-testid="error-header"
+            className="w3-panel w3-red w3-padding"
+          >
+            <p>{message}</p>
+          </div>
+        )}
       </div>
       <div className="w3-row">
         <div

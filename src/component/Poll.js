@@ -19,7 +19,7 @@ const Poll = (props) => {
     if (props.notFound) {
       navigate("*");
     }
-  }, []);
+  }, [props, navigate]);
 
   return (
     <div>
@@ -87,21 +87,7 @@ const mapStateToProps = ({ authedUser, polls, users }, otherProps) => {
     const poll = allPolls.filter((poll) => poll.id === question_id).pop();
     const user = allUsers.filter((user) => user.id === poll.author).pop();
 
-    const authedUserAnswers = allPolls.filter(
-      (poll) =>
-        poll.optionOne.votes.includes(authedUser.id) ||
-        poll.optionTwo.votes.includes(authedUser.id)
-    );
-
-    const authedUserAnswerIds = authedUserAnswers.map((poll) => poll.id);
-
-    const answer = () => {
-      if (poll.optionOne.votes.includes(authedUser.id)) {
-        return "optionOne";
-      } else if (poll.optionTwo.votes.includes(authedUser.id)) {
-        return "optionTwo";
-      }
-    };
+    const authedUserAnswerIds = Object.keys(authedUser.answers);
 
     return {
       id: question_id,
@@ -111,7 +97,7 @@ const mapStateToProps = ({ authedUser, polls, users }, otherProps) => {
       authedUser,
       numberOfUsers: allUsers.length,
       isAnswered: authedUserAnswerIds.includes(question_id),
-      answer: answer(),
+      answer: authedUser.answers[question_id],
     };
   }
 };

@@ -36,10 +36,10 @@ const Dashboard = (props) => {
           <div className="w3-rest">
             <p className="username">{props.authedUser.name}</p>
             <p className="userinfo pb-0">
-              Polls: {props.authedUserQuestions.length}
+              Polls: {props.authedUser.questions.length}
             </p>
             <p className="userinfo pb-0">
-              Answers: {props.authedUserAnswers.length}
+              Answers: {Object.keys(props.authedUser.answers).length}
             </p>
           </div>
         </div>
@@ -87,37 +87,22 @@ const Dashboard = (props) => {
 const mapStateToProps = ({ authedUser, polls }) => {
   const allPolls = Object.entries(polls).flatMap((poll) => poll.pop());
 
-  const authedUserQuestions = allPolls.filter(
-    (poll) => poll.author === authedUser.id
-  );
-
-  const authedUserAnswers = allPolls.filter(
-    (poll) =>
-      poll.optionOne.votes.includes(authedUser.id) ||
-      poll.optionTwo.votes.includes(authedUser.id)
-  );
-
-  const authedUserAnswerIds = authedUserAnswers.map((poll) => poll.id);
-
   const unansweredPolls = allPolls
-    .filter((poll) => !authedUserAnswerIds.includes(poll.id))
+    .filter((poll) => !Object.keys(authedUser.answers).includes(poll.id))
     .sort((a, b) => {
       return b.timestamp - a.timestamp;
     });
 
   const answeredPolls = allPolls
-    .filter((poll) => authedUserAnswerIds.includes(poll.id))
+    .filter((poll) => Object.keys(authedUser.answers).includes(poll.id))
     .sort((a, b) => {
       return b.timestamp - a.timestamp;
     });
 
   return {
     authedUser,
-    polls,
     unansweredPolls,
     answeredPolls,
-    authedUserQuestions,
-    authedUserAnswers,
   };
 };
 

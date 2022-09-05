@@ -44,7 +44,7 @@ const Leaderboard = (props) => {
                     src={require(`../${user.avatarURL}`)}
                     className="w3-circle"
                     width={35}
-                    alt={user.id}
+                    alt={`${user.id}-alt`}
                   ></img>
                   <span>{user.name}</span>
                 </td>
@@ -59,8 +59,7 @@ const Leaderboard = (props) => {
   );
 };
 
-const mapStateToProps = ({ users, polls }) => {
-  const allPolls = Object.entries(polls).flatMap((poll) => poll.pop());
+const mapStateToProps = ({ users }) => {
   const allUsers = Object.entries(users).flatMap((user) => user.pop());
 
   const leaderBoardUsers = allUsers
@@ -69,12 +68,8 @@ const mapStateToProps = ({ users, polls }) => {
         id: user.id,
         name: user.name,
         avatarURL: user.avatarURL,
-        questions: allPolls.filter((poll) => poll.author === user.id).length,
-        answers: allPolls.filter(
-          (poll) =>
-            poll.optionOne.votes.includes(user.id) ||
-            poll.optionTwo.votes.includes(user.id)
-        ).length,
+        questions: user.questions.length,
+        answers: Object.keys(user.answers).length,
       };
     })
     .sort((a, b) => {

@@ -1,21 +1,20 @@
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PollItem from "./PollItem";
 
 const withRouter = (Component) => {
   const ComponentWithProp = (props) => {
-    let location = useLocation();
-    let navigate = useNavigate();
-    let params = useParams();
-    return <Component {...props} router={{ location, navigate, params }} />;
+    const params = useParams();
+    return <Component {...props} router={{ params }} />;
   };
 
   return ComponentWithProp;
 };
 
 const Poll = (props) => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (props.notFound) {
       navigate("*");
